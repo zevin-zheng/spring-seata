@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.zhengwei.seata</groupId>
+        <artifactId>spring-seata</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <name>seataOrderServer</name>
+    <artifactId>seata-order-server</artifactId>
+    <packaging>jar</packaging>
+
+    <properties>
+        <build-final-name>seata-order-server</build-final-name>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!-- nacos 作为服务注册中心 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <!-- nacos 作为配置中心 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.alibaba</groupId>
+                    <artifactId>druid</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-alibaba-seata</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.seata</groupId>
+                    <artifactId>seata-spring-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${build-final-name}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <activeProfile>dev</activeProfile>
+                <activeProfileShort>dev</activeProfileShort>
+                <!--<prop.log.dir>/data1/czh-logs/${project.parent.artifactId}</prop.log.dir>-->
+                <!--<prop.log.level>INFO</prop.log.level>-->
+                <prop.nacos.config.server-addr>localhost:8848</prop.nacos.config.server-addr>
+                <!--<prop.nacos.config.namespace>793364c3-0711-4fee-aaff-275099cd35b5</prop.nacos.config.namespace>-->
+                <spring.profiles.active>${activeProfile}</spring.profiles.active>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <activeProfile>test</activeProfile>
+                <activeProfileShort>test</activeProfileShort>
+                <!--<prop.log.dir>/data1/czh-logs/${project.parent.artifactId}</prop.log.dir>-->
+                <!--<prop.log.level>INFO</prop.log.level>-->
+                <prop.nacos.config.server-addr>localhost:8848</prop.nacos.config.server-addr>
+                <!--<prop.nacos.config.namespace>793364c3-0711-4fee-aaff-275099cd35b5</prop.nacos.config.namespace>-->
+                <spring.profiles.active>${activeProfile}</spring.profiles.active>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>

@@ -1,0 +1,40 @@
+server:
+    port: 8813
+spring:
+    profiles:
+        active: @activeProfile@
+mybatis-plus:
+    mapper-locations: classpath:/mapper/*Mapper.xml
+    typeAliasesPackage: com.zhengwei.seata
+    global-config:
+        db-config:
+            field-strategy: not-empty
+            id-type: auto
+            db-type: mysql
+    configuration:
+        map-underscore-to-camel-case: true
+        cache-enabled: true
+        auto-mapping-unknown-column-behavior: none
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+seata:
+    enabled: true
+    application-id: seata-storage-server
+    tx-service-group: my_test_tx_group
+    config:
+        type: nacos
+        file:
+            name: file.conf
+        nacos:
+            namespace:
+            serverAddr: 127.0.0.1:8848
+            group: SEATA_GROUP
+            userName: ""
+            password: ""
+    registry:
+        type: nacos
+        nacos:
+            application: seata-server
+            server-addr: 127.0.0.1:8848
+            namespace:
+            userName: ""
+            password: ""
