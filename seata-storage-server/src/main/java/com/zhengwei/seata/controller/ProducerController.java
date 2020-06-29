@@ -4,8 +4,6 @@ import com.zhengwei.seata.entity.Product;
 import com.zhengwei.seata.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -32,5 +30,19 @@ public class ProducerController {
     public Boolean updateById(@RequestBody Product product) {
         log.info("product:{}", product);
         return productService.updateById(product);
+    }
+
+    /**
+     * 分布式事务中途修改数据怎么回滚
+     * @return
+     */
+    @GetMapping(value = "testUpdate")
+    public Object testUpdate(){
+        log.info("testUpdate begin");
+        Product product = productService.getById(1);
+        product.setStock(product.getStock() - 1);
+        productService.updateById(product);
+        log.info("testUpdate end");
+        return true;
     }
 }

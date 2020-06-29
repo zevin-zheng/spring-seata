@@ -1,11 +1,11 @@
 server:
-    port: 8814
+    port: 8815
 spring:
     profiles:
         active: @activeProfile@
 seata:
     enabled: true
-    application-id: seata-user-server
+    application-id: seata-user-server1
     tx-service-group: my_test_tx_group
     config:
         type: nacos

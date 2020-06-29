@@ -26,7 +26,7 @@ seata:
             name: file.conf
         nacos:
             namespace:
-            serverAddr: 127.0.0.1:8848
+            serverAddr: 192.168.1.5:8848
             group: SEATA_GROUP
             userName: ""
             password: ""
@@ -34,7 +34,7 @@ seata:
         type: nacos
         nacos:
             application: seata-server
-            server-addr: 127.0.0.1:8848
+            server-addr: 192.168.1.5:8848
             namespace:
             userName: ""
             password: ""
